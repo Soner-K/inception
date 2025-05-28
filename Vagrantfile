@@ -6,8 +6,6 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "sokaraku"
   config.vm.provision "shell", path: "main-box-dependencies.sh"
 
-  config.disksize.size = '1GB'
-
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "512"
   end
