@@ -11,8 +11,8 @@ RUN mkdir -p /etc/nginx/certs /var/www/html
 COPY certs /etc/nginx/certs/
 
 # Copy Nginx config
-COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
 
 # Copy website files
 COPY ./www/ /var/www/html/

@@ -1,14 +1,14 @@
-mkdir -p srcs/nginx/certs
+mkdir -p certs
 
 openssl req -x509 -nodes -days 365 \
   -newkey rsa:2048 \
-  -keyout srcs/nginx/certs/sokaraku.42.fr.key \
-  -out srcs/nginx/certs/sokaraku.42.fr.crt \
+  -keyout certs/sokaraku.42.fr.key \
+  -out certs/sokaraku.42.fr.crt \
   -subj "/C=FR/ST=IDF/L=Paris/O=42/CN=sokaraku.42.fr"
   
-mkdir -p srcs/nginx/www
+mkdir -p www
 
-cat > srcs/nginx/www/index.html <<EOF
+cat > www/index.html <<EOF
 <!DOCTYPE html>
 <html lang="en">
 <head>

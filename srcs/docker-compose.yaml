@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    restart: always
+
+    env_file:
+      - .env
+    environment:
+      - DATABASE_NAME=${DATABASE_NAME}
+      - WP_ADMIN_NAME=${WP_ADMIN_NAME}
+      - WP_OTHER_USER=${WP_OTHER_USER}
+      - WP_ADMIN_PASSWORD=${WP_ADMIN_PASSWORD}
+      - WP_OTHER_USER_PASSWORD=${WP_OTHER_USER_PASSWORD}
+
+    volumes:
+      - mariadb:/var/lib/mysql
+      - ./requirements/mariadb/tools/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+    networks:
+      - inception
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    restart: always
+
+    env_file:
+      - .env
+    environment:
+      - WORDPRESS_DB_HOST=mariadb:3306
+      - WORDPRESS_DB_NAME=${MYSQL_DATABASE}
+      - WORDPRESS_DB_USER=${MYSQL_USER}
+      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
+
+    volumes:
+      - wordpress:/var/www/html
+
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    restart: always
+
+    volumes:
+      - wordpress:/var/www/html
+      - ./requirements/nginx/conf:/etc/nginx/conf.d:ro
+      - ./requirements/nginx/certs:/etc/nginx/certs:ro
+
+    ports:
+      - "443:443"
+
+    depends_on:
+      - wordpress
+
+    networks:
+      - inception
+
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/sokaraku/data/mariadb
+      o: bind
+
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/sokaraku/data/wordpress
+      o: bind
+
+networks:
+  inception:
+    driver: bridge
