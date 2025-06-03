@@ -1,16 +1,16 @@
-FROM alpine:3.21
+FROM debian:bullseye
 
-RUN apk update && apk add --no-cache mariadb mariadb-server
+# update and upgrade the system
+RUN apt-get update && apt-get upgrade -y
 
-#sets the user and group ownership to mysql recursively
-RUN mkdir -p /run/mysqld /var/lib/mysql && \
-    chown -R mysql:mysql /run/mysqld /var/lib/mysql
+# # install the required packages
+RUN apt-get install -y mariadb-server netcat
 
-COPY ./conf/my.cnf /etc/my.cnf
+# copy file from host to container
+COPY ./tools/on_launch_exec.sh /on_launch_exec.sh
 
-RUN chmod +x 
+# set permissions to the file
+RUN chmod +x /on_launch_exec.sh
 
-# CMD ["sh", "-c", "mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql && exec mysqld --user=mysql"]
-CMD ["mariadbd", "--help", "--verbose"]
-
-EXPOSE 3306
+# define entrypoint command to run when the container starts
+ENTRYPOINT ["./on_launch_exec.sh"]

@@ -1,14 +1,7 @@
-mkdir -p certs
+#!/bin/sh
+mkdir -p /var/www/wordpress
 
-openssl req -x509 -nodes -days 365 \
-  -newkey rsa:2048 \
-  -keyout certs/sokaraku.42.fr.key \
-  -out certs/sokaraku.42.fr.crt \
-  -subj "/C=FR/ST=IDF/L=Paris/O=42/CN=sokaraku.42.fr"
-  
-mkdir -p www
-
-cat > www/index.html <<EOF
+cat > /var/www/wordpress/index.html <<EOF
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,5 +14,3 @@ cat > www/index.html <<EOF
 </body>
 </html>
 EOF
-
-  #move to make
