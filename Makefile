@@ -1,35 +1,45 @@
-WP_DATA = /home/data/wordpress 
-DB_DATA = /home/data/mariadb 
+WP_DATA = /home/sokaraku/data/wordpress 
+DB_DATA = /home/sokaraku/data/mariadb 
 
 all: up
 
 up: build
-	@mkdir -p $(WP_DATA)
-	@mkdir -p $(DB_DATA)
-	docker-compose -f ./docker-compose.yml up -d
+	@sudo mkdir -p $(WP_DATA)
+	@sudo mkdir -p $(DB_DATA)
+	@sudo chown -R 999:999 $(WP_DATA)
+	@sudo chown -R www-data:www-data /home/sokaraku/data/wordpress
+	@sudo chown -R 33:33 /home/sokaraku/data/wordpress
+	@bash add_host.sh
+	sudo docker-compose -f ./srcs/docker-compose.yml up -d
 
 down:
-	docker-compose -f ./docker-compose.yml down
+	sudo docker-compose -f ./srcs/docker-compose.yml down --remove-orphans
+
+force-down:
+	sudo docker rm -f mariadb wordpress nginx || true
+	sudo docker network rm inception || true
 
 stop:
-	docker-compose -f ./docker-compose.yml stop
+	sudo docker-compose -f ./srcs/docker-compose.yml stop
 
 start:
-	docker-compose -f ./docker-compose.yml start
+	sudo docker-compose -f ./srcs/docker-compose.yml start
 
 build:
-	docker-compose -f ./docker-compose.yml build
+	sudo docker-compose -f ./srcs/docker-compose.yml build
 
 clean:
-	@docker-compose -f ./docker-compose.yml down || true
-	@docker container prune -f || true
-	@docker image prune -a -f || true
-	@docker volume prune -f || true
-	@docker network prune -f || true
-	@rm -rf $(WP_DATA) || true
-	@rm -rf $(DB_DATA) || true
+	@sudo docker-compose -f ./srcs/docker-compose.yml down || true
+	@sudo docker container prune -f || true
+	@sudo docker image prune -a -f || true
+	@sudo docker volume prune -f || true
+	@sudo docker network prune -f || true
+
+fclean: clean force-down
+	@sudo rm -rf $(WP_DATA) || true
+	@sudo rm -rf $(DB_DATA) || true
 
 re: clean up
 
 prune: clean
-	@docker system prune -a --volumes -f
+	@sudo docker system prune -a --volumes -f

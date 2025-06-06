@@ -24,6 +24,12 @@ wp core install --url="$DOMAIN_NAME" --title="$WP_TITLE" --admin_user="$WP_ADMIN
 #create a new user with the given username, email, password and role
 wp user create "$WP_U_NAME" "$WP_U_EMAIL" --user_pass="$WP_U_PASS" --role="$WP_U_ROLE" --allow-root
 
+wp config set WP_HOME "https://$DOMAIN_NAME/" --allow-root
+
+wp config set WP_SITEURL "https://$DOMAIN_NAME/" --allow-root
+
+wp search-replace "http://$DOMAIN_NAME/" "https://$DOMAIN_NAME/" --all-tables --allow-root
+
 #---------------------------------------------------php config---------------------------------------------------#
 
 # change listen port from unix socket to 9000
