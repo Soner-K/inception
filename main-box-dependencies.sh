@@ -15,6 +15,18 @@ echo \
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
 
+
+echo '# Enable prefix history search
+bind "\"\\e[A\": history-search-backward"
+bind "\"\\e[B\": history-search-forward"
+
+# History configuration
+HISTSIZE=10000
+HISTFILESIZE=20000
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend' >> ~/.bashrc
+
+
 # Add vagrant user to docker group
 usermod -aG docker vagrant
 

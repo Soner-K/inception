@@ -18,6 +18,11 @@ RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout \
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./tools/prepare_nginx_env.sh /prepare_nginx_env.sh
 
+COPY ./tools/show_keys.sh /usr/local/bin/show_keys.sh
+RUN chmod +x /usr/local/bin/show_keys.sh 
+
+
+
 # create the wordpress directory
 RUN mkdir -p /var/www/wordpress
 

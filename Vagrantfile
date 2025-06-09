@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "./", "/home/sokaraku", create: true
   config.vm.hostname = "sokaraku"
   config.vm.provision "shell", path: "main-box-dependencies.sh"
-  config.vm.network "forwarded_port", guest: 443, host: 443, auto_correct: true
+  config.vm.network "forwarded_port", guest: 443, host: 8443
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "512"
   end

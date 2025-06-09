@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   mariadb:
-    image: mariadb
+    # image: mariadb
     container_name: mariadb
     build: ${CTR_PATH}/mariadb
     volumes:
@@ -15,7 +15,7 @@ services:
     restart: always
 
   nginx:
-    image: nginx
+    # image: nginx
     container_name: nginx
     build: ${CTR_PATH}/nginx
     ports:
@@ -29,7 +29,7 @@ services:
     restart: always
 
   wordpress:
-    image: wordpress
+    # image: wordpress
     container_name: wordpress
     build: ${CTR_PATH}/wordpress
     depends_on:

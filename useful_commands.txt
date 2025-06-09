@@ -1,3 +1,45 @@
 sudo docker system prune -a --volumes -f removes ALL stopped containers, unused networks...
 
 sudo docker rm -f <name> [...] # deletes a container
+
+/!\ ADD port forwarding from host (x443) to guest (443)
+
+#restarting a container
+sudo docker-compose -f <RELATIVE - ABSOLUTE PATH TO DOCKERCOMPOSE FILE> restart <SERVICE NAME>
+
+#building an image abd running the container
+sudo docker-compose -f <RELATIVE - ABSOLUTE PATH TO DOCKERCOMPOSE FILE> up -d --build <SERVICE NAME>
+
+#running a script using docker compose
+sudo docker-compose -f <RELATIVE - ABSOLTUE PATH TO YML FILE> exec <SERVICE NAME> <PATH_TO_SCRIPT>
+
+#running a script using docker
+sudo docker exec <SERVICE_NAME> <PATH_TO_SCRIPT>
+
+#check the logs of a service
+docker logs <SERVICE_NAME>
+
+#show runnign containers
+docker ps
+docker container ls 
+
+# show all containers
+docker ps -a
+docker container ls -a
+
+#show all docker images
+docker images
+docker image ls 
+
+#detailed information about a specific container
+docker insepct <CONTAINER_NAME OR ID> 
+
+#container logs
+docker logs <CONTAINER_NAME OR ID>
+
+
+
+FOR THE CORRECTION
+
+show the ssl keys
+sudo docker exec nginx /usr/local/bin/show_keys.sh 

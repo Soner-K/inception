@@ -38,3 +38,23 @@ sed -i '36 s@/run/php/php7.4-fpm.sock@9000@' /etc/php/7.4/fpm/pool.d/www.conf
 mkdir -p /run/php
 # start php-fpm service in the foreground to keep the container running
 /usr/sbin/php-fpm7.4 -F
+
+
+# #!/bin/sh
+
+# sleep 10
+
+# wp config create --allow-root \
+# 				--dbname=$MYSQL_DB \
+# 				--dbuser=$MYSQL_USER \
+# 				--dbpass=$MYSQL_PASSWORD \
+# 				--dbhost=mariadb --path='/var/www/wordpress'
+
+# wp core install	--allow-root \
+# 				--url=https://$DOMAIN_NAME \
+# 				--title=$WP_TITLE \
+# 				--admin-user=$WP_ADMIN_U \
+# 				--admin-password=$WP_U_PASS \
+# 				--admin_email=$WP_ADMIN_E --path='/var/www/wordpress'
+
+# phpfpm7.4 -F
