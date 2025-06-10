@@ -4,12 +4,12 @@ DB_DATA = /home/sokaraku/data/mariadb
 all: up
 
 up: build
-	@sudo mkdir -p $(WP_DATA)
 	@sudo mkdir -p $(DB_DATA)
-	@sudo chown -R 999:999 $(WP_DATA)
-	@sudo chown -R www-data:www-data /home/sokaraku/data/wordpress
-	@sudo chown -R 33:33 /home/sokaraku/data/wordpress
-	@bash add_host.sh
+	@sudo mkdir -p $(WP_DATA)
+	@sudo chmod -R 777 $(DB_DATA) # Set directory permissions first
+	@sudo chown -R 999:999 $(DB_DATA) # MariaDB uses UID 999
+	@sudo chown -R 33:33 $(WP_DATA) # www-data in container
+	# @bash add_host.sh
 	sudo docker-compose -f ./srcs/docker-compose.yml up -d
 
 down:
