@@ -4,7 +4,6 @@ version: "3.8"
 services:
 #mariadb
   mariadb:
-    # image: mariadb:user
     container_name: mariadb
     build: ${CTR_PATH}/mariadb
     volumes:
@@ -21,7 +20,6 @@ services:
       retries: 10
 #nginx
   nginx:
-    # image: nginx:user
     container_name: nginx
     build: ${CTR_PATH}/nginx
     ports:
@@ -35,7 +33,6 @@ services:
     restart: always
 #wordpress
   wordpress:
-    # image: wordpress:user
     container_name: wordpress
     build: ${CTR_PATH}/wordpress
     depends_on:
