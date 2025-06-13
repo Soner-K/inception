@@ -26,8 +26,5 @@ HISTFILESIZE=20000
 HISTCONTROL=ignoredups:erasedups
 shopt -s histappend' >> ~/.bashrc
 
-
-# Add vagrant user to docker group
-usermod -aG docker vagrant
-
 apt-get install make -y
+touch installation.done

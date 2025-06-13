@@ -1,4 +1,5 @@
 .vagrant
 .vagrant/*
-.env
+*.env
 data
+installation.done
