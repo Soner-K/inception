@@ -5,7 +5,7 @@ FROM debian:bullseye
 RUN apt-get update && apt-get upgrade -y
 
 # # install the required packages
-RUN apt-get install -y nginx openssl nc
+RUN apt-get install -y nginx openssl netcat-traditional
 
 # create the ssl directory
 RUN mkdir -p /etc/nginx/ssl
