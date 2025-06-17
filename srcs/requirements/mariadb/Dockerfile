@@ -7,7 +7,7 @@ FROM debian:bullseye
 RUN apt-get update && apt-get upgrade -y
 
 # # install the required packages
-RUN apt-get install -y mariadb-server netcat
+RUN apt-get install -y mariadb-server netcat iputils-ping
  
 # copy file from host to container
 COPY ./tools/mdb_setup.sh /mdb_setup.sh

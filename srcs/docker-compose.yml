@@ -1,11 +1,10 @@
 version: "3.8"
 
-# the services part
 services:
-#mariadb
   mariadb:
     container_name: mariadb
     build: ${CTR_PATH}/mariadb
+    image: mariadb
     volumes:
       - mariadb:/var/lib/mysql
     env_file :
@@ -18,10 +17,10 @@ services:
       interval: 1s
       timeout: 5s
       retries: 10
-#nginx
   nginx:
     container_name: nginx
     build: ${CTR_PATH}/nginx
+    image: nginx
     ports:
       - "443:443"
     depends_on:
@@ -31,10 +30,10 @@ services:
     networks:
       - inception
     restart: always
-#wordpress
   wordpress:
     container_name: wordpress
     build: ${CTR_PATH}/wordpress
+    image: wordpress
     depends_on:
       mariadb:
         condition: service_healthy
@@ -46,24 +45,22 @@ services:
       - inception
     restart: always
 
-# the volumes part
 volumes:
   mariadb:
     name: mariadb
     driver: local
     driver_opts:
       device: /home/sokaraku/data/mariadb
-      o : bind
+      o: bind
       type : none
   wordpress:
     name: wordpress
     driver: local
     driver_opts:
       device: /home/sokaraku/data/wordpress
-      o : bind
+      o: bind
       type : none
 
-# the networks part
 networks:
   inception:
     name: inception

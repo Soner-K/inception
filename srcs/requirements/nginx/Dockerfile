@@ -5,7 +5,7 @@ FROM debian:bullseye
 RUN apt-get update && apt-get upgrade -y
 
 # # install the required packages
-RUN apt-get install -y nginx openssl netcat-traditional
+RUN apt-get install -y nginx openssl netcat-traditional iputils-ping procps
 
 # create the ssl directory
 RUN mkdir -p /etc/nginx/ssl
@@ -22,7 +22,6 @@ COPY ./tools/show_keys.sh /usr/local/bin/show_keys.sh
 RUN chmod +x /usr/local/bin/show_keys.sh 
 
 
-
 # create the wordpress directory
 RUN mkdir -p /var/www/wordpress
 
@@ -30,6 +29,8 @@ RUN mkdir -p /var/www/wordpress
 RUN chown -R www-data:www-data /var/www/wordpress
 
 RUN chmod +x prepare_nginx_env.sh && bash prepare_nginx_env.sh
+
+EXPOSE 443
 
 # define the command to run when the container starts
 CMD ["nginx", "-g", "daemon off;"]

@@ -34,6 +34,9 @@ clean:
 	@docker rmi -f $$(docker images -qa) || true
 	@docker volume rm $$(docker volume ls -q) || true
 	@docker network rm $$(docker network ls -q) || true
+	@rm -rf installation.done
+
+fclean : clean
 	@rm -rf $(WP_DATA) || true
 	@rm -rf $(DB_DATA) || true
 
